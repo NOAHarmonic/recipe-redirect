@@ -13,14 +13,21 @@
             // Deep-Link in das korrekte Schema umwandeln
             let deepLink = `rezeptefuchs://recipe/${recipeID}`;
 
-            // Versuche, den Deep-Link zu öffnen
-            window.location.href = deepLink;
+            // Versuche, den Deep-Link in die App zu öffnen
+            let openApp = setTimeout(() => {
+                window.location.href = deepLink;
+            }, 500);
 
-            // Falls die App nicht installiert ist, zeige den Fallback-Link
+            // Falls die App nicht installiert ist, zeige nach 2 Sekunden den Fallback-Link
             setTimeout(() => {
                 document.getElementById("fallback").style.display = "block";
                 document.getElementById("fallback-link").href = deepLink;
             }, 2000);
+
+            // **Falls Deep-Link nicht funktioniert, leite zu Netlify-Seite weiter**
+            setTimeout(() => {
+                window.location.href = `https://ornate-biscochitos-f21530.netlify.app/web-recipe/${recipeID}`;
+            }, 4000);
         });
     </script>
 </head>

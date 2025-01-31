@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weiterleitung...</title>
+    <title>Weiterleitung zum Rezept...</title>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // Hole die Rezept-ID aus der URL
+            // Extrahiere die Rezept-ID aus der URL
             let path = window.location.pathname;
             let recipeID = path.split("/").pop();
-            
-            // Definiere den Deep Link
-            let deepLink = `recipefuchs://recipe/${recipeID}`;
-            
-            // Versuche den Deep Link zu öffnen
+
+            // Deep-Link in das korrekte Schema umwandeln
+            let deepLink = `rezeptefuchs://recipe/${recipeID}`;
+
+            // Versuche, den Deep-Link zu öffnen
             window.location.href = deepLink;
 
-            // Falls das nicht klappt, zeige den Fallback-Link
+            // Falls die App nicht installiert ist, zeige den Fallback-Link
             setTimeout(() => {
                 document.getElementById("fallback").style.display = "block";
                 document.getElementById("fallback-link").href = deepLink;
@@ -27,5 +27,9 @@
 <body>
     <h1>Weiterleitung zum Rezept...</h1>
     <p>Falls du nicht weitergeleitet wirst, <a id="fallback-link" href="#">klicke hier</a>.</p>
+    <div id="fallback" style="display:none;">
+        <p>Die App scheint nicht installiert zu sein. Lade sie hier herunter:</p>
+        <a href="https://apps.apple.com/de/app/rezeptefuchs/id123456789">App im App Store</a>
+    </div>
 </body>
 </html>

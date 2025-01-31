@@ -6,20 +6,19 @@
     <title>Recipe Redirect</title>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // URL-Pfad analysieren
             let path = window.location.pathname;
-            let recipeID = path.split("/").pop(); // Nimmt den letzten Teil der URL (Rezept-ID)
+            let recipeID = path.split("/").pop(); // Extrahiert die Rezept-ID
 
             // Deep-Link für die App
             let appLink = "recipefuchs://recipe/" + recipeID;
 
-            // Prüfen, ob der Nutzer die App hat oder nicht
-            setTimeout(function() {
-                window.location.href = "https://your-web-recipes.netlify.app/recipe/" + recipeID;
-            }, 2000); // Falls App nicht geöffnet wird, leite nach 2 Sekunden auf Web-Version weiter
-
             // Versuche, die App zu öffnen
             window.location.href = appLink;
+
+            // Falls die App nicht geöffnet wird, leite nach 2 Sekunden auf die Web-Version weiter
+            setTimeout(function() {
+                window.location.href = "https://ornate-biscochitos-f21530.netlify.app/web-recipe/" + recipeID;
+            }, 2000);
         });
     </script>
 </head>
@@ -29,7 +28,7 @@
     <script>
         let path = window.location.pathname;
         let recipeID = path.split("/").pop();
-        document.getElementById("fallbackLink").href = "https://your-web-recipes.netlify.app/recipe/" + recipeID;
+        document.getElementById("fallbackLink").href = "https://ornate-biscochitos-f21530.netlify.app/web-recipe/" + recipeID;
     </script>
 </body>
 </html>

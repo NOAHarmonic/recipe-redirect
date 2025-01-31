@@ -6,25 +6,19 @@
     <title>Weiterleitung zum Rezept...</title>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // Rezept-Identifier aus der URL extrahieren
-            let urlParams = new URLSearchParams(window.location.search);
-            let recipeID = urlParams.get("id"); // Ändere auf "id" statt "recipeID"
+            let path = window.location.pathname;
+            let recipeID = path.split("/").pop();
 
-            if (recipeID) {
-                // Deep-Link ins korrekte Schema umwandeln
-                let deepLink = `rezeptefuchs://recipe/${recipeID}`;
+            // Deep-Link Schema
+            let deepLink = `rezeptefuchs://recipe/${recipeID}`;
 
-                // Versuche, den Deep-Link zu öffnen
-                window.location.href = deepLink;
+            // Versuche den Deep-Link zu öffnen
+            window.location.replace(deepLink);
 
-                // Falls die App nicht installiert ist, zeige den Fallback-Link
-                setTimeout(() => {
-                    document.getElementById("fallback").style.display = "block";
-                    document.getElementById("fallback-link").href = deepLink;
-                }, 2000);
-            } else {
-                console.error("❌ Kein gültiger Rezept-Identifier gefunden.");
-            }
+            setTimeout(() => {
+                document.getElementById("fallback").style.display = "block";
+                document.getElementById("fallback-link").href = deepLink;
+            }, 1500);
         });
     </script>
 </head>

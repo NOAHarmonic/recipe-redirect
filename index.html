@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Redirect</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // URL-Pfad analysieren
+            let path = window.location.pathname;
+            let recipeID = path.split("/").pop(); // Nimmt den letzten Teil der URL (Rezept-ID)
+
+            // Deep-Link für die App
+            let appLink = "recipefuchs://recipe/" + recipeID;
+
+            // Prüfen, ob der Nutzer die App hat
+            setTimeout(function() {
+                window.location.href = "https://your-web-recipes.netlify.app/recipe/" + recipeID;
+            }, 2000); // Falls App nicht geöffnet wird, leite nach 2 Sekunden auf Web-Version weiter
+
+            // Versuche, die App zu öffnen
+            window.location.href = appLink;
+        });
+    </script>
+</head>
+<body>
+    <h2>Weiterleitung zum Rezept...</h2>
+    <p>Falls du nicht weitergeleitet wirst, <a id="fallbackLink">klicke hier</a>.</p>
+    <script>
+        let path = window.location.pathname;
+        let recipeID = path.split("/").pop();
+        document.getElementById("fallbackLink").href = "https://your-web-recipes.netlify.app/recipe/" + recipeID;
+    </script>
+</body>
+</html>

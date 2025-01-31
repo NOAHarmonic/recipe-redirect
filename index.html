@@ -1,34 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recipe Redirect</title>
+    <title>Weiterleitung...</title>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+            // Hole die Rezept-ID aus der URL
             let path = window.location.pathname;
-            let recipeID = path.split("/").pop(); // Extrahiert die Rezept-ID
+            let recipeID = path.split("/").pop();
+            
+            // Definiere den Deep Link
+            let deepLink = `recipefuchs://recipe/${recipeID}`;
+            
+            // Versuche den Deep Link zu öffnen
+            window.location.href = deepLink;
 
-            // Deep-Link zur App
-            let appLink = "recipefuchs://recipe/" + recipeID;
-
-            // Versuch, die App zu öffnen
-            window.location.href = appLink;
-
-            // Falls die App nicht installiert ist, leite zur Web-Version weiter
-            setTimeout(function() {
-                window.location.href = "https://ornate-biscochitos-f21530.netlify.app/web-recipe/" + recipeID;
+            // Falls das nicht klappt, zeige den Fallback-Link
+            setTimeout(() => {
+                document.getElementById("fallback").style.display = "block";
+                document.getElementById("fallback-link").href = deepLink;
             }, 2000);
         });
     </script>
 </head>
 <body>
-    <h2>Weiterleitung zum Rezept...</h2>
-    <p>Falls du nicht weitergeleitet wirst, <a id="fallbackLink">klicke hier</a>.</p>
-    <script>
-        let path = window.location.pathname;
-        let recipeID = path.split("/").pop();
-        document.getElementById("fallbackLink").href = "https://ornate-biscochitos-f21530.netlify.app/web-recipe/" + recipeID;
-    </script>
+    <h1>Weiterleitung zum Rezept...</h1>
+    <p>Falls du nicht weitergeleitet wirst, <a id="fallback-link" href="#">klicke hier</a>.</p>
 </body>
 </html>

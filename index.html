@@ -21,11 +21,12 @@
             // Versuche den Deep-Link zu öffnen
             window.location.href = deepLink;
 
+            // Falls die App nicht installiert ist, zeige nach 2 Sekunden den Fallback-Link
             setTimeout(() => {
                 console.warn("⚠️ Deep-Link konnte nicht geöffnet werden, zeige Fallback.");
                 document.getElementById("fallback").style.display = "block";
                 document.getElementById("fallback-link").href = deepLink;
-            }, 1500);
+            }, 2000);
         });
     </script>
 </head>

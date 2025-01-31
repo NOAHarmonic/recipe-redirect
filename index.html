@@ -6,25 +6,31 @@
     <title>Weiterleitung zum Rezept...</title>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // Rezept-ID aus der URL holen
+            console.log("📌 Skript gestartet...");
+            
+            // Rezept-ID aus der URL extrahieren
             const urlParams = new URLSearchParams(window.location.search);
             const recipeID = urlParams.get("recipeID");
 
             if (recipeID) {
-                // Deep-Link für die App
+                console.log("🔗 Rezept-ID gefunden:", recipeID);
+
+                // Erstelle den Deep-Link zur App
                 let deepLink = `rezeptefuchs://recipe/${recipeID}`;
-                console.log("🔗 Weiterleitung zu:", deepLink);
+                console.log("🚀 Versuche die App zu öffnen:", deepLink);
 
                 // Versuche, die App zu öffnen
                 window.location.href = deepLink;
 
-                // Falls die App nicht installiert ist, zeige den Fallback-Link
+                // Falls die App nicht installiert ist, zeige den Fallback-Link nach 3 Sekunden
                 setTimeout(() => {
+                    console.warn("⚠️ App wurde nicht geöffnet. Zeige Fallback.");
                     document.getElementById("fallback").style.display = "block";
                     document.getElementById("fallback-link").href = deepLink;
-                }, 2000);
+                }, 3000);
             } else {
-                console.error("❌ Keine recipeID gefunden.");
+                console.error("❌ Keine Rezept-ID in der URL gefunden.");
+                document.getElementById("error").style.display = "block";
             }
         });
     </script>
@@ -32,9 +38,14 @@
 <body>
     <h1>Weiterleitung zum Rezept...</h1>
     <p>Falls du nicht weitergeleitet wirst, <a id="fallback-link" href="#">klicke hier</a>.</p>
+
     <div id="fallback" style="display:none;">
         <p>Die App scheint nicht installiert zu sein. Lade sie hier herunter:</p>
         <a href="https://apps.apple.com/de/app/rezeptefuchs/id123456789">App im App Store</a>
+    </div>
+
+    <div id="error" style="display:none; color: red;">
+        <p>❌ Fehler: Keine Rezept-ID gefunden. Bitte überprüfe den Link.</p>
     </div>
 </body>
 </html>

@@ -9,13 +9,20 @@
             let path = window.location.pathname;
             let recipeID = path.split("/").pop();
 
+            if (!recipeID || recipeID === "index.html") {
+                console.error("❌ Fehler: Rezept-ID nicht gefunden!");
+                return;
+            }
+
             // Deep-Link Schema
             let deepLink = `rezeptefuchs://recipe/${recipeID}`;
+            console.log(`🔗 Versuche, Deep-Link zu öffnen: ${deepLink}`);
 
             // Versuche den Deep-Link zu öffnen
-            window.location.replace(deepLink);
+            window.location.href = deepLink;
 
             setTimeout(() => {
+                console.warn("⚠️ Deep-Link konnte nicht geöffnet werden, zeige Fallback.");
                 document.getElementById("fallback").style.display = "block";
                 document.getElementById("fallback-link").href = deepLink;
             }, 1500);

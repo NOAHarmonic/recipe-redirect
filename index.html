@@ -6,28 +6,26 @@
     <title>Weiterleitung zum Rezept...</title>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // Extrahiere die Rezept-ID aus der URL
-            let path = window.location.pathname;
-            let recipeID = path.split("/").pop();
+            // Rezept-ID aus der URL holen
+            const urlParams = new URLSearchParams(window.location.search);
+            const recipeID = urlParams.get("recipeID");
 
-            // Deep-Link in das korrekte Schema umwandeln
-            let deepLink = `rezeptefuchs://recipe/${recipeID}`;
+            if (recipeID) {
+                // Deep-Link für die App
+                let deepLink = `rezeptefuchs://recipe/${recipeID}`;
+                console.log("🔗 Weiterleitung zu:", deepLink);
 
-            // Versuche, den Deep-Link in die App zu öffnen
-            let openApp = setTimeout(() => {
+                // Versuche, die App zu öffnen
                 window.location.href = deepLink;
-            }, 500);
 
-            // Falls die App nicht installiert ist, zeige nach 2 Sekunden den Fallback-Link
-            setTimeout(() => {
-                document.getElementById("fallback").style.display = "block";
-                document.getElementById("fallback-link").href = deepLink;
-            }, 2000);
-
-            // **Falls Deep-Link nicht funktioniert, leite zu Netlify-Seite weiter**
-            setTimeout(() => {
-                window.location.href = `https://ornate-biscochitos-f21530.netlify.app/web-recipe/${recipeID}`;
-            }, 4000);
+                // Falls die App nicht installiert ist, zeige den Fallback-Link
+                setTimeout(() => {
+                    document.getElementById("fallback").style.display = "block";
+                    document.getElementById("fallback-link").href = deepLink;
+                }, 2000);
+            } else {
+                console.error("❌ Keine recipeID gefunden.");
+            }
         });
     </script>
 </head>

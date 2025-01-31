@@ -1,1 +1,1 @@
-/recipe/:recipeID /redirect.html?recipeID=:recipeID 302
+/recipe/:recipeID /index.html?recipeID=:recipeID 200

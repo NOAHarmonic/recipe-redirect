@@ -1,1 +1,1 @@
-/recipe/:recipeID /index.html 200
+/recipe/:recipeID  rezeptefuchs://recipe/:recipeID 302
